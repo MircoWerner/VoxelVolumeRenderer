@@ -37,16 +37,16 @@ float lvao(vec3 position, ivec3 normal, ivec3 voxel) {
     ivec3 dy = voxel + normal - tangent + bitangent;
     ivec3 dz = voxel + normal - tangent - bitangent;
     ivec3 dw = voxel + normal + tangent - bitangent;
-    vec4 vc = ivec4(occ(cx), occ(cy), occ(cz), occ(cw));
-    vec4 vd = ivec4(occ(dx), occ(dy), occ(dz), occ(dw));
+    vec4 c = ivec4(occ(cx), occ(cy), occ(cz), occ(cw));
+    vec4 d = ivec4(occ(dx), occ(dy), occ(dz), occ(dw));
 
     vec3 frac = fract(position);
     vec2 uv = normal.x != 0 ? frac.yz : (normal.y != 0 ? frac.xz : frac.xy);
     vec2 st = 1.0 - uv;
-    vec4 wa = vec4(uv.x, st.x, uv.y, st.y) * vc;// edges
-    vec4 wb = vec4(uv.x * uv.y, st.x * uv.y, st.x * st.y, uv.x * st.y) * vd * (1.0 - vc.xzyw) * (1.0 - vc.zywx);// corners
+    vec4 wc = vec4(uv.x, st.x, uv.y, st.y) * c;// edges
+    vec4 wd = vec4(uv.x * uv.y, st.x * uv.y, st.x * st.y, uv.x * st.y) * d * (1.0 - c.xzyw) * (1.0 - c.zywx);// corners
 
-    float ao = 1.0 - (wa.x + wa.y + wa.z + wa.w + wb.x + wb.y + wb.z + wb.w);
+    float ao = 1.0 - (wc.x + wc.y + wc.z + wc.w + wd.x + wd.y + wd.z + wd.w);
     return (ao + 1.0) / 2.0;// shift ao values to make the scene brighter, works well in practice
 }
 
