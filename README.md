@@ -13,7 +13,6 @@ This program was created as part of my bachelor thesis at KIT (Karlsruhe Institu
 > Combining the ambient occlusion and emission techniques, the visualization of the voxel data supports both the perception of the spatial structure, including large features like cave structures, and the highlighting of important parts of the data set that are missed otherwise.
 
 <img src="https://user-images.githubusercontent.com/34870366/186930969-4989a5b9-4331-4419-a861-d9c49266fd6f.jpg" alt="img: vdcao + ddfe" style="max-width: 960px; max-height: 960px">
-<br />
 Scene rendered with constant ambient lighting only (left) and with ambient occlusion and emission (right). The spatial structure is just perceptible on the right. Some colorful cells are emphasized by letting them emit light. Rendered with VDCAO + DDFE.
 
 ## Table of contents
@@ -26,7 +25,7 @@ Scene rendered with constant ambient lighting only (left) and with ambient occlu
 <a name="features"></a>
 ## Features
 - Accelerated ray marching of large voxel volumes using a global signed distance field.
-- Various ambient occlusion techniques (shader code .
+- Various ambient occlusion techniques.
     * (Accumulated) Ray Traced Ambient Occlusion (RTAO) (ground truth)
     * Voxel Distance Field Cone Traced Ambient Occlusion (VDCAO) (ours)
     * Voxel Cone Traced Ambient Occlusion (VCTAO)
@@ -63,23 +62,23 @@ Requires C++ 17 and OpenGL 4.3 support.
 <a name="results"></a>
 ## Results
 <img src="https://user-images.githubusercontent.com/34870366/186929418-12478344-2444-4173-bbe4-e0d33427cdcb.jpg" alt="img: vdcao + ddfe">
-<br> 800^3, far. VDCAO + DDFE.
+800^3, far. VDCAO + DDFE.
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/34870366/186929383-ae2201dd-0f70-4ab2-88f0-095490e551d2.jpg" alt="img: vctao + vcte">
-<br> 800^3, far. VCTAO + VCTE (diffuse and specular cones).
+800^3, far. VCTAO + VCTE (diffuse and specular cones).
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/34870366/186929443-fe8538c0-0a36-4455-82c6-ea4a99ba7596.jpg" alt="img: vdcao + ddfe">
-<br> 800^3, near. VDCAO + DDFE.
+800^3, near. VDCAO + DDFE.
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/34870366/186929432-56d66ce9-30c6-417e-947a-202e16abf148.jpg" alt="img: vctao + vcte">
-<br> 800^3, far. VCTAO + VCTE (diffuse and specular cones).
+800^3, far. VCTAO + VCTE (diffuse and specular cones).
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/34870366/186929511-9e9f5230-b3d0-46c3-b962-00a5d4748d86.jpg" alt="img: vdcao">
-<br> 400^3, near. VDCAO.
+400^3, near. VDCAO.
 
 
 <a name="references"></a>
