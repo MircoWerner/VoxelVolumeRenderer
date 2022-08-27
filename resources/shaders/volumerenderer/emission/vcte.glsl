@@ -74,7 +74,7 @@ vec3 coneTrace(vec3 P, vec3 N, vec3 direction, int coneTraceSteps, float apertur
     float distanceIncrease = distance;
     for (int i = 0; i < coneTraceSteps && light.a <= 0.99; i++) {
         vec3 position = P + distance * direction;
-        if (position.x < 0 || position.x > volumeDimension.x || position.y < 0 || position.y > volumeDimension.y || position.z < 0 && position.z > volumeDimension.z) {
+        if (position.x < 0 || position.x > volumeDimension.x || position.y < 0 || position.y > volumeDimension.y || position.z < 0 || position.z > volumeDimension.z) {
             break;
         }
         float coneDiameter = max(1.0, 2.0 * tanHalfAperture * distance);

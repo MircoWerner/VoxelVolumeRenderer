@@ -57,19 +57,8 @@ vec3 createDirection(float phi, float theta, vec3 N) {
     }
 }
 
-float max3f(float a, float b, float c) {
-    return max(a, max(b, c));
-}
-
-float distancePositionAABB(vec3 P, ivec3 aabbMin, ivec3 aabbMax) {
-    return max3f(P.x - aabbMax.x, 0, aabbMin.x - P.x)
-    + max3f(P.y - aabbMax.y, 0, aabbMin.y - P.y)
-    + max3f(P.z - aabbMax.z, 0, aabbMin.z - P.z);
-}
-
-float sdf(vec3 P, vec3 coordinate, float lod) {
+float sdf(vec3 coordinate, float lod) {
     float sdfValue = textureLod(tex_sdf, coordinate, lod).r;
-    sdfValue += distancePositionAABB(P, ivec3(0), volumeDimension);// add distance to the AABB if sample is outside
     return sdfValue;
 }
 
@@ -87,11 +76,11 @@ float coneTraceDF(vec3 P, vec3 N, vec3 dir) {
     float distance = coneTraceStepSize;
     for (int i = 0; i < coneTraceSteps && alpha <= 0.99; i++) {
         vec3 position = P + distance * dir;
-        if (position.x < 0 || position.x > volumeDimension.x || position.y < 0 || position.y > volumeDimension.y || position.z < 0 && position.z > volumeDimension.z) {
+        if (position.x < 0 || position.x > volumeDimension.x || position.y < 0 || position.y > volumeDimension.y || position.z < 0 || position.z > volumeDimension.z) {
             break;
         }
         float coneDiameter = max(1.0, 2.0 * tanHalfAperture * distance);
-        float sdfValue = sdf(P + distance * dir - 0.5 * N, (P + distance * dir - 0.5 * N) * INV_TEXTURE, log2(coneDiameter));
+        float sdfValue = sdf((P + distance * dir - 0.5 * N) * INV_TEXTURE, log2(coneDiameter));
         float convAlpha = clamp(distance * cosTheta - sdfValue, 0, distance) / distance;// convert sdf value to alpha value
         float alphaStep = coneTraceStepSize * convAlpha;// correct alpha value
         alpha += attenuate(distance) * (1.0 - alpha) * alphaStep;// front to back accumulation, add attenuation
